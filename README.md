@@ -1,26 +1,27 @@
-# LinkBox (MV2)
+LinkBox (MV2)
 
-LinkBox enregistre des liens, en ouvre un au hasard et permet de gérer/importer/exporter la liste. Données 100% locales via `browser.storage.local`.
+Save links, open a random one, and manage/import/export your list. 100% local data via browser.storage.local.
 
-## Permissions essentielles
-- `storage` (sauvegarde locale)
-- `tabs` (lire l’onglet actif et ouvrir un onglet)
-- `contextMenus` (ajoute “Enregistrer cette page / ce lien”)
+Permissions
+- storage: local persistence
+- tabs: read current tab URL and open new tabs
+- contextMenus: "Save this page / link" entries
 
-## Construire le paquet (ZIP)
-- Exécuter: `bash scripts/build-zip.sh`
-- Le fichier est généré dans `dist/linkbox-<version>.zip`
+Build the ZIP
+- Run: bash scripts/build-zip.sh
+- Output: dist/linkbox-<version>.zip
 
-Pour soumission Firefox: utilisez le ZIP généré (aucun autre fichier nécessaire).
+Run in Firefox (dev)
+- npx web-ext run --source-dir . (if web-ext is installed)
+or
+- about:debugging → "Load Temporary Add-on…" → select this folder
 
-## Lancer en dev (Firefox)
-- `npx web-ext run --source-dir .` (si `web-ext` installé)
-ou
-- `about:debugging` → “Charger un module complémentaire temporaire” → sélectionner le dossier.
+Included files
+- manifest.json, background.js
+- popup.*, manage.*, import.*, styles.css
+- icons/, _locales/
 
-## Fichiers inclus
-- `manifest.json`, `background.js`
-- `popup.*`, `manage.*`, `import.*`, `styles.css`
-- `icons/`, `_locales/`
-
-Note: pas de collecte, pas de serveur. Les liens marqués “vu” ou “ignoré” sont exclus du tirage; les favoris sont pondérés.
+Notes
+- Plain JS/HTML/CSS, no bundlers/minifiers/obfuscation.
+- Random pick excludes links tagged viewed or skip; favorite links are weighted x2.
+- No host permissions; Gecko ID is assigned by AMO on first submission.
