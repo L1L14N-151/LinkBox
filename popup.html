@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LinkBox</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="popup-dark">
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <div id="visit-banner" class="banner hidden" role="status" aria-live="polite">
+          <span id="banner-text" data-t="banner_text">Avez‑vous fini de visiter ce site ?</span>
+      <div class="banner-actions">
+            <button id="banner-yes" class="primary" data-t="yes">Oui</button>
+            <button id="banner-later" data-t="later">Plus tard</button>
+      </div>
+    </div>
+    <div id="error-banner" class="banner hidden" role="alert" aria-live="assertive">
+      <span id="error-text" data-t="error_generic">Action impossible.</span>
+      <div class="banner-actions">
+        <button id="error-close" class="primary">OK</button>
+      </div>
+    </div>
+    <div id="view-home" class="home">
+      <header class="home-header">
+        <div class="home-brand">📦 LinkBox</div>
+        <div class="row" style="display:flex; align-items:center; gap:8px">
+          <div class="home-count" id="home-count">0 élément</div>
+          <button id="theme-toggle" class="theme-btn" data-title="theme_toggle" title="Basculer clair/sombre">☀️</button>
+          <select id="lang-select" class="theme-btn" title="Langue">
+            <option value="fr">FR</option>
+            <option value="en">EN</option>
+          </select>
+          <button id="info-btn" class="theme-btn" data-title="info_title" title="Informations">ℹ️</button>
+        </div>
+      </header>
+      <section class="home-grid">
+        <button type="button" id="tile-save" class="home-tile home-primary">
+          <div class="home-emoji">🟣</div>
+          <div class="home-title" data-t="tile_save">Enregistrer la page</div>
+        </button>
+        <button type="button" id="tile-random" class="home-tile home-primary-alt" style="position:relative">
+          <div class="home-emoji">🎲</div>
+          <div class="home-title" data-t="tile_random">URL aléatoire</div>
+          <span id="badge-remaining" class="home-badge">0</span>
+        </button>
+        <button type="button" id="go-manage" class="home-tile home-secondary">
+          <div class="home-emoji">📁</div>
+          <div class="home-title" data-t="tile_manage">Ouvrir le gestionnaire</div>
+        </button>
+        <button type="button" id="tile-add-url" class="home-tile home-secondary">
+          <div class="home-emoji">➕</div>
+          <div class="home-title" data-t="tile_add">Ajouter une URL</div>
+        </button>
+      </section>
+    </div>
+
+    <div id="view-save" class="save interface hidden">
+      <header class="toolbar">
+        <button id="back-btn-save" class="back" aria-label="Retour">←</button>
+        <h1>Enregistrer</h1>
+      </header>
+      <section class="add">
+        <div id="save-panel" class="save-panel">
+          <div class="save-title">Enregistrer la page actuelle</div>
+          <div class="save-actions">
+            <button id="save-confirm" class="primary">Enregistrer</button>
+            <button id="save-cancel">Annuler</button>
+          </div>
+        </div>
+        
+        <div id="status-save" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <div id="view-add" class="interface hidden">
+      <header class="toolbar">
+        <button id="back-btn-add" class="back" aria-label="Retour">←</button>
+        <h1 data-t="add_title">Ajouter une URL</h1>
+      </header>
+      <section class="add">
+        <form id="add-form-view">
+          <input id="add-url-input" type="url" data-ph="ph_url" placeholder="https://exemple.com" required />
+          <input id="add-title-input" type="text" data-ph="ph_title" placeholder="Titre (optionnel)" />
+          <button type="submit" class="primary" data-t="add_btn">Ajouter</button>
+        </form>
+        <div id="status-add" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <div id="view-interface" class="interface hidden">
+      <header class="toolbar">
+        <button id="back-btn-manage" class="back" aria-label="Retour">←</button>
+        <h1>Mes liens</h1>
+      </header>
+      <section class="add">
+        <input id="filter-input" type="search" placeholder="Rechercher (titre ou URL)" />
+        <div class="actions minor">
+          <button id="export-btn">Exporter JSON</button>
+          <button id="import-btn">Importer JSON</button>
+          <input id="import-file" type="file" accept="application/json,.json" hidden />
+        </div>
+        <div class="actions minor">
+          <button id="clear-btn" class="danger" title="Supprimer tous les liens">Tout supprimer</button>
+        </div>
+        <div id="status" aria-live="polite"></div>
+      </section>
+      <section class="list">
+        <ul id="links-list"></ul>
+      </section>
+    </div>
+
+    <div id="view-rediscover" class="interface hidden">
+      <header class="toolbar">
+        <button id="back-btn-rediscover" class="back" aria-label="Retour">←</button>
+        <h1>Redécouvrir</h1>
+      </header>
+      <section class="add">
+        <div class="actions stack">
+          <button id="random-open" class="primary">Ouvrir un lien aléatoire</button>
+        </div>
+        <div class="row" style="display:flex; align-items:center; gap:8px; margin-top:6px">
+          <label class="toggle" role="switch" tabindex="0" id="auto-viewed" aria-checked="false"></label>
+          <span>Marquer lu automatiquement</span>
+        </div>
+        <div id="status-rediscover" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <div id="view-info" class="interface hidden">
+      <header class="toolbar">
+        <button id="back-btn-info" class="back" aria-label="Retour">←</button>
+        <h1 data-t="about_title">À propos</h1>
+      </header>
+      <section class="add">
+        <div class="panel" style="background:var(--card); border:1px solid var(--border); border-radius:10px; padding:10px;">
+          <h2 style="margin:4px 0 6px; font-size:14px; color:var(--muted)" data-t="about_what_title">Qu’est‑ce que c’est ?</h2>
+          <p style="margin:0 0 8px" data-t="about_what_text">LinkBox enregistre des liens localement, propose un lien au hasard pour (re)découvrir et permet de gérer/ exporter votre liste. Aucune donnée n’est envoyée.</p>
+          <h2 style="margin:10px 0 6px; font-size:14px; color:var(--muted)" data-t="features_title">Fonctionnalités</h2>
+          <ul style="margin:0 0 8px 18px">
+            <li data-t="feat_save">Enregistrer la page courante ou un lien via le menu.</li>
+            <li data-t="feat_random">Ouvrir un lien aléatoire (exclut les liens marqués « viewed »).</li>
+            <li data-t="feat_manage">Gestion: recherche, marquer vu/nouveau, ignorer/inclure, modifier, supprimer, actions par lot.</li>
+            <li data-t="feat_import">Importer/Exporter JSON.</li>
+            <li data-t="feat_theme">Thème clair/sombre mémorisé.</li>
+          </ul>
+          <h2 style="margin:10px 0 6px; font-size:14px; color:var(--muted)" data-t="privacy_title">Confidentialité</h2>
+          <ul style="margin:0 0 8px 18px">
+            <li data-t="privacy_local">Données stockées en local (<code>browser.storage.local</code>).</li>
+            <li data-t="privacy_none">Aucune collecte, aucun serveur.</li>
+            <li data-t="privacy_perms">Permissions: <code>storage</code>, <code>tabs</code>, <code>contextMenus</code>.</li>
+          </ul>
+          <h2 style="margin:10px 0 6px; font-size:14px; color:var(--muted)" data-t="import_title">Import/Export</h2>
+          <p style="margin:0" data-t="import_text">Dans la popup: « Ouvrir le gestionnaire » → boutons « Exporter JSON » / « Importer JSON ».</p>
+        </div>
+      </section>
+    </div>
+
+    <script>window.browser = window.browser || window.chrome;</script>
+    <script src="popup.js" type="module"></script>
+  </body>
+  </html>

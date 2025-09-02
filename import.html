@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Importer des liens • LinkBox</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+      body { width:auto; max-width: 720px; margin: 0 auto; }
+      .container{ padding:16px; }
+      .drop{ border:2px dashed var(--border); border-radius:12px; padding:24px; text-align:center; color:var(--muted); }
+      .drop.dragover{ background:#f8fafc; }
+      .result{ margin-top:10px; color:var(--muted); }
+    </style>
+  </head>
+  <body style="background:var(--bg-gradient)">
+    <div class="container">
+      <h1>Importer un fichier JSON</h1>
+      <p>Sélectionne un fichier exporté précédemment pour ajouter ses liens à ta liste.</p>
+      <div class="actions">
+        <input id="file" type="file" accept="application/json,.json" />
+        <button id="import-btn" class="primary">Importer</button>
+        <button id="close-btn">Fermer</button>
+      </div>
+      <div id="drop" class="drop">Glisse-dépose ton fichier ici</div>
+      <div id="status" class="result" aria-live="polite"></div>
+    </div>
+    <script src="import.js" type="module"></script>
+  </body>
+  </html>

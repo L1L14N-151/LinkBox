@@ -1,0 +1,12 @@
+# OS cruft
+.DS_Store
+
+# Build artifacts
+dist/*.zip
+
+# Node (if added later)
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+

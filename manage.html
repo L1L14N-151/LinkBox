@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gérer les liens • LinkBox</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+      .container-manage{ max-width: 980px; margin: 0 auto; }
+      header.page { position: sticky; top: 0; background: var(--panel); border-bottom: 1px solid var(--border); z-index: 5; }
+      header.page .row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; }
+      .toolbar-actions{ display:flex; align-items:center; gap:8px; }
+      .content { padding: 12px; }
+      .grid { display:grid; grid-template-columns: 1fr; gap: 10px; }
+      @media (min-width: 720px){ .grid { grid-template-columns: 1fr 320px; align-items:start; } }
+      .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+      .panel h2{ margin:0 0 8px; font-size:14px; color: var(--muted); }
+      .empty { color: var(--muted); padding: 12px; }
+    </style>
+  </head>
+  <body class="manage">
+    <div class="container-manage">
+      <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+      <header class="page">
+      <div class="row">
+        <h1>LinkBox</h1>
+        <div class="toolbar-actions">
+          <button id="theme-toggle-manage" class="theme-btn" title="Basculer clair/sombre">☀️</button>
+          <select id="lang-select-manage" class="theme-btn" title="Langue">
+            <option value="fr">FR</option>
+            <option value="en">EN</option>
+          </select>
+          <button id="export-btn" data-t="export_json">Exporter JSON</button>
+          <button id="import-btn" data-t="import_json">Importer JSON</button>
+          <input id="import-file" type="file" accept="application/json,.json" hidden />
+        </div>
+      </div>
+      </header>
+      <div class="content">
+      <div class="grid">
+        <section class="panel">
+          <h2 data-t="search_title">Recherche</h2>
+          <input id="filter-input" type="search" data-ph="ph_search" placeholder="Rechercher (titre ou URL)" />
+          <div class="chips" id="filter-chips">
+            <button class="chip chip-active" data-filter="all" data-t="chip_all">Tous</button>
+            <button class="chip" data-filter="new" data-t="chip_new">New</button>
+            <button class="chip" data-filter="viewed" data-t="chip_viewed">Viewed</button>
+            <button class="chip" data-filter="ignored" data-t="chip_ignored">Ignored</button>
+          </div>
+          <label class="sort" style="margin-top:6px; display:inline-flex; gap:6px; align-items:center;">
+            <span data-t="sort_label">Tri</span>
+            <select id="sort-select">
+              <option value="added_desc" data-t="sort_added">Ajoutés récents</option>
+              <option value="visited_asc" data-t="sort_visited">Moins visités</option>
+              <option value="last_visited_desc" data-t="sort_last">Récemment ouverts</option>
+            </select>
+          </label>
+          <div id="status" class="result" aria-live="polite"></div>
+        </section>
+        <section class="panel">
+          <h2 data-t="tip_title">Astuce</h2>
+          <p class="empty" data-t="tip_text">Clic droit sur un lien → Enregistrer ce lien. Les liens “viewed” sont exclus du tirage aléatoire.</p>
+        </section>
+      </div>
+      <div class="batch-actions">
+        <label class="batch-select"><input type="checkbox" id="select-all" /> Tout sélectionner</label>
+        <div class="batch-group">
+          <button id="batch-viewed" class="btn-sm">Marquer vu</button>
+          <button id="batch-new" class="btn-sm">Marquer nouveau</button>
+          <button id="batch-skip" class="btn-sm">Ignorer</button>
+          <button id="batch-include" class="btn-sm">Inclure</button>
+          <button id="batch-delete" class="danger btn-sm">Supprimer</button>
+        </div>
+        <span id="batch-count" class="muted"></span>
+      </div>
+      <section class="list" style="margin-top:12px;">
+        <ul id="links-list"></ul>
+        <div id="empty" class="empty hidden">Aucun lien enregistré.</div>
+      </section>
+      </div>
+    </div>
+    <script>window.browser = window.browser || window.chrome;</script>
+    <script src="manage.js" type="module"></script>
+  </body>
+  </html>

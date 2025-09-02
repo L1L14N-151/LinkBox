@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "default_locale": "fr",
+  "name": "LinkBox",
+  "version": "0.1.1",
+  "description": "Enregistre des liens, en pioche un au hasard, ouvre et supprime facilement.",
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "96": "icons/96.png",
+    "128": "icons/128.png",
+    "256": "icons/256.png"
+  },
+  "browser_action": {
+    "default_title": "LinkBox",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png"
+    }
+  },
+  "permissions": ["storage", "tabs", "contextMenus"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "commands": {
+    "save-tab": {
+      "suggested_key": { "default": "Ctrl+Shift+S" },
+      "description": "Enregistrer l'onglet courant"
+    },
+    "open-random": {
+      "suggested_key": { "default": "Ctrl+Shift+R" },
+      "description": "Ouvrir un lien aléatoire"
+    }
+  },
+  
+  "browser_specific_settings": {
+    "gecko": {}
+  }
+}
