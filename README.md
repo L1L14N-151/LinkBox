@@ -2,6 +2,20 @@
 
 Save links, open a random one, and manage/import/export your list. 100% local data via browser.storage.local.
 
+## Screenshots
+
+### Popup Interface
+![Popup Interface](screenshots/popup.png)
+*Quick access to save current page, open random link, or manage your collection*
+
+### Manage Links
+![Manage Links](screenshots/manage.png)
+*View, edit, and organize all your saved links with tags*
+
+### Informations
+![Informations](screenshots/informations.png)
+*View statistics and details about your link collection*
+
 ## Permissions
 - `storage`: local persistence
 - `tabs`: read current tab URL and open new tabs
