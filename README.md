@@ -15,7 +15,7 @@ Save links, open a random one, and manage/import/export your list. 100% local da
 *View, edit, and organize all your saved links with tags*
 
 ### Informations
-<img src="screenshots/informations.png" alt="Informations" width="600">
+<img src="screenshots/informations.png" alt="Informations" width="400">
 
 *View statistics and details about your link collection*
 
