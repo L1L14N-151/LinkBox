@@ -5,15 +5,18 @@ Save links, open a random one, and manage/import/export your list. 100% local da
 ## Screenshots
 
 ### Popup Interface
-![Popup Interface](screenshots/popup.png)
+<img src="screenshots/popup.png" alt="Popup Interface" width="400">
+
 *Quick access to save current page, open random link, or manage your collection*
 
 ### Manage Links
-![Manage Links](screenshots/manage.png)
+<img src="screenshots/manage.png" alt="Manage Links" width="600">
+
 *View, edit, and organize all your saved links with tags*
 
 ### Informations
-![Informations](screenshots/informations.png)
+<img src="screenshots/informations.png" alt="Informations" width="600">
+
 *View statistics and details about your link collection*
 
 ## Permissions
